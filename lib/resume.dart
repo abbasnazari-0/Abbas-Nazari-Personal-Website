@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:ABBASNAZARI/appdata.dart';
 import 'package:ABBASNAZARI/cv.dart';
 import 'package:ABBASNAZARI/util.dart';
+import 'package:seo_renderer/renderers/link_renderer/link_renderer.dart';
+import 'package:seo_renderer/renderers/text_renderer/text_renderer.dart';
 
 class Resume extends StatefulWidget {
   final double hieght, width;
@@ -56,9 +58,11 @@ class _ResumeState extends State<Resume> {
                 SizedBox(
                   height: 20,
                 ),
-                Text(
-                  'برنامه های ساخته شده ',
-                  style: style.apply(fontSizeDelta: 5),
+                TextRenderer(
+                  text: Text(
+                    'برنامه های ساخته شده ',
+                    style: style.apply(fontSizeDelta: 5),
+                  ),
                 ),
                 Container(
                     decoration: BoxDecoration(
@@ -74,69 +78,74 @@ class _ResumeState extends State<Resume> {
                         Map<String, String> mApp = appDataes[index];
                         return Column(
                           children: [
-                            InkWell(
-                              onTap: () {
-                                print('object');
-                                launchURL(mApp['applink']);
-                              },
-                              child: Container(
-                                margin: EdgeInsets.only(top: 20.0, bottom: 20),
-                                height: 100.0,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      child: Image.network(
-                                        'img/' + mApp['appicon'],
-                                        height: 80,
-                                      ),
-                                      margin:
-                                          EdgeInsets.only(left: 20, bottom: 0),
-                                    ),
-                                    Expanded(
-                                      child: Container(
+                            LinkRenderer(
+                              anchorText: 'برنامه' + ' ' + mApp['appname'],
+                              link: mApp['applink'],
+                              child: InkWell(
+                                onTap: () {
+                                  print('object');
+                                  launchURL(mApp['applink']);
+                                },
+                                child: Container(
+                                  margin:
+                                      EdgeInsets.only(top: 20.0, bottom: 20),
+                                  height: 100.0,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        child: Image.network(
+                                          'img/' + mApp['appicon'],
+                                          height: 80,
+                                        ),
                                         margin: EdgeInsets.only(
-                                            right: 20, bottom: 10),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                'برنامه' +
-                                                    ' ' +
-                                                    mApp['appname'],
-                                                style: style.apply(
-                                                    fontSizeDelta: 3),
-                                                textDirection:
-                                                    TextDirection.rtl,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                mApp['appdetail'],
-                                                style: style.apply(
-                                                  color: Colors.white60,
-                                                  fontSizeFactor: 0.8,
+                                            left: 20, bottom: 0),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          margin: EdgeInsets.only(
+                                              right: 20, bottom: 10),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  'برنامه' +
+                                                      ' ' +
+                                                      mApp['appname'],
+                                                  style: style.apply(
+                                                      fontSizeDelta: 3),
+                                                  textDirection:
+                                                      TextDirection.rtl,
                                                 ),
-                                                maxLines: 2,
-                                                textAlign: TextAlign.justify,
-                                                overflow: TextOverflow.clip,
-                                                textDirection:
-                                                    TextDirection.rtl,
                                               ),
-                                            ),
-                                          ],
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  mApp['appdetail'],
+                                                  style: style.apply(
+                                                    color: Colors.white60,
+                                                    fontSizeFactor: 0.8,
+                                                  ),
+                                                  maxLines: 2,
+                                                  textAlign: TextAlign.justify,
+                                                  overflow: TextOverflow.clip,
+                                                  textDirection:
+                                                      TextDirection.rtl,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

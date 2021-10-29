@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ABBASNAZARI/cv.dart';
+import 'package:seo_renderer/seo_renderer.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MyApp(),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -28,10 +31,11 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'ABBAS NAZARI | عباس نظری',
       theme: ThemeData(primarySwatch: Colors.blue, accentColor: Colors.white),
+      navigatorObservers: <RouteObserver<ModalRoute<void>>>[routeObserver],
       home: Scaffold(
         body: CVPage(),
       ),

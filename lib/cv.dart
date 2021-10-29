@@ -1,6 +1,12 @@
+import 'dart:html';
+
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ABBASNAZARI/resume.dart';
+import 'package:seo_renderer/renderers/image_renderer/image_renderer.dart';
+import 'package:seo_renderer/renderers/link_renderer/link_renderer_vm.dart';
+import 'package:seo_renderer/renderers/text_renderer/text_renderer.dart';
 
 import 'util.dart';
 
@@ -8,7 +14,16 @@ const colorBackground = Color(0xff31313a);
 var hieght = Get.size.height;
 var width = Get.size.width;
 var name = "عباس نظری";
-var mySkill = "برنامه نویس اندروید";
+var mySkill = [
+  RotateAnimatedText(
+    "برنامه نویس اندروید",
+    textStyle: style.apply(color: skillColor),
+  ),
+  RotateAnimatedText(
+    "طراح UI | UX",
+    textStyle: style.apply(color: skillColor),
+  ),
+];
 const titleColor = Color(0xffe1e1e4);
 const skillColor = Colors.orange;
 ScrollController scrollController = new ScrollController();
@@ -22,17 +37,19 @@ class _CVPageState extends State<CVPage> {
   @override
   Widget build(BuildContext context) {
     hieght = MediaQuery.of(context).size.height;
-    return ListView(
-      physics: ClampingScrollPhysics(),
-      controller: scrollController,
-      children: [
-        MainViews(),
-        Resume(
-          hieght: hieght,
-          width: width,
-          colorBackground: colorBackground,
-        )
-      ],
+    return Scrollbar(
+      child: ListView(
+        physics: ScrollPhysics(),
+        controller: scrollController,
+        children: [
+          MainViews(),
+          Resume(
+            hieght: hieght,
+            width: width,
+            colorBackground: colorBackground,
+          )
+        ],
+      ),
     );
   }
 }
@@ -66,35 +83,56 @@ class MainViews extends StatefulWidget {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        IconButton(
-          onPressed: () {
-            launchURL('https://stackoverflow.com/users/11399464/abbas-nazari');
-          },
-          icon: Image.network('img/stack.png', color: Colors.white),
+        LinkRenderer(
+          anchorText: 'ABBAS NAZARI StackOverFlow',
+          link: 'https://stackoverflow.com/users/11399464/abbas-nazari',
+          child: IconButton(
+            onPressed: () {
+              launchURL(
+                  'https://stackoverflow.com/users/11399464/abbas-nazari');
+            },
+            icon: Image.network('img/stack.png', color: Colors.white),
+          ),
         ),
-        IconButton(
-          onPressed: () {
-            launchURL('https://github.com/abbas-nazari');
-          },
-          icon: Image.network('img/github.png', color: Colors.white),
+        LinkRenderer(
+          anchorText: 'ABBAS NAZARI Github',
+          link: 'https://github.com/abbas-nazari',
+          child: IconButton(
+            onPressed: () {
+              launchURL('https://github.com/abbas-nazari');
+            },
+            icon: Image.network('img/github.png', color: Colors.white),
+          ),
         ),
-        IconButton(
-          onPressed: () {
-            launchURL('https://www.instagram.com/abbasnazari.af/');
-          },
-          icon: Image.network('img/instagram.png', color: Colors.white),
+        LinkRenderer(
+          anchorText: 'ABBAS NAZARI Instgram',
+          link: 'https://www.instagram.com/abbasnazari.af/',
+          child: IconButton(
+            onPressed: () {
+              launchURL('https://www.instagram.com/abbasnazari.af/');
+            },
+            icon: Image.network('img/instagram.png', color: Colors.white),
+          ),
         ),
-        IconButton(
-          onPressed: () {
-            launchURL('https://twitter.com/ABBAS64482109');
-          },
-          icon: Image.network('img/twitter.png', color: Colors.white),
+        LinkRenderer(
+          anchorText: 'ABBAS NAZARI Twitter',
+          link: 'https://twitter.com/ABBAS64482109',
+          child: IconButton(
+            onPressed: () {
+              launchURL('https://twitter.com/ABBAS64482109');
+            },
+            icon: Image.network('img/twitter.png', color: Colors.white),
+          ),
         ),
-        IconButton(
-          onPressed: () {
-            launchURL('https://t.me/abbas_mahdavi');
-          },
-          icon: Image.network('img/telegram.png', color: Colors.white),
+        LinkRenderer(
+          anchorText: 'ABBAS NAZARI Telegram',
+          link: 'https://t.me/abbas_mahdavi',
+          child: IconButton(
+            onPressed: () {
+              launchURL('https://t.me/abbas_mahdavi');
+            },
+            icon: Image.network('img/telegram.png', color: Colors.white),
+          ),
         ),
       ],
     ),
@@ -112,13 +150,17 @@ class _MainViewsState extends State<MainViews> {
         flex: 2,
         child: ClipPath(
           clipper: background(),
-          child: Container(
-            height: hieght / 2 - 45.0,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(const Radius.circular(10)),
-              image: DecorationImage(
-                image: NetworkImage('img/bg2.jpg'),
-                fit: BoxFit.cover,
+          child: ImageRenderer(
+            alt: 'Background',
+            link: 'img/bg2.jpg',
+            child: Container(
+              height: hieght / 2 - 45.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(const Radius.circular(10)),
+                image: DecorationImage(
+                  image: NetworkImage('img/bg2.jpg'),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
@@ -153,16 +195,22 @@ class _MainViewsState extends State<MainViews> {
             children: [
               Expanded(
                 flex: 1,
-                child: Text(
-                  name,
-                  style: style,
+                child: TextRenderer(
+                  element: new HeadingElement.h1(),
+                  text: Text(
+                    name,
+                    style: style,
+                  ),
                 ),
               ),
               Expanded(
                 flex: 1,
-                child: Text(
-                  mySkill,
-                  style: style.apply(color: skillColor),
+                child: TextRenderer(
+                  element: new HeadingElement.h2(),
+                  text: AnimatedTextKit(
+                    animatedTexts: mySkill,
+                    repeatForever: true,
+                  ),
                 ),
               ),
             ],
@@ -192,7 +240,9 @@ class _MainViewsState extends State<MainViews> {
               Expanded(
                 child: Container(
                   child: InkWell(
-                    child: textIcon('نمایش برنامه ها', 'img/application.png'),
+                    child: TextRenderer(
+                        text:
+                            textIcon('نمایش برنامه ها', 'img/application.png')),
                     onTap: () {
                       scrollController.animateTo(
                         scrollController.position.maxScrollExtent,
@@ -205,21 +255,29 @@ class _MainViewsState extends State<MainViews> {
               ),
               Expanded(
                 child: Container(
-                  child: InkWell(
-                    child: textIcon('دانلود رزومه', 'img/download.png'),
-                    onTap: () {
-                      launchURL(
-                          'http://myresume.abbasnazari.com/abbasnazari.pdf');
-                    },
+                  child: LinkRenderer(
+                    anchorText: 'دانلود رزومه',
+                    link: 'http://myresume.abbasnazari.com/abbasnazari.pdf',
+                    child: InkWell(
+                      child: textIcon('دانلود رزومه', 'img/download.png'),
+                      onTap: () {
+                        launchURL(
+                            'http://myresume.abbasnazari.com/abbasnazari.pdf');
+                      },
+                    ),
                   ),
                 ),
               ),
               Expanded(
                 child: Container(
                   child: InkWell(
-                    child: textIcon(
-                      'تماس با من',
-                      'img/telephone.png',
+                    child: LinkRenderer(
+                      anchorText: 'تماس با من',
+                      link: 'tel:+93764680300',
+                      child: textIcon(
+                        'تماس با من',
+                        'img/telephone.png',
+                      ),
                     ),
                     onTap: () {
                       launchURL('tel:+93764680300');
