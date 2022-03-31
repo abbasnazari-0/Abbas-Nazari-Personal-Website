@@ -1,5 +1,14 @@
 List appDataes = [
   {
+    "id": "4",
+    "appname": "بازار بزرگ",
+    "appicon": "bazar_bozorg.png",
+    "appdetail":
+        """برنامه ای کاربردی برای تمامی فروشگاها که امکان دیده شدن آن و محصولات آن میشود""",
+    "applink":
+        "https://play.google.com/store/apps/details?id=af.arianadeveloper.bazaar_bozorg"
+  },
+  {
     "id": "0",
     "appname": "بیو شیک",
     "appicon": "bio_shick.png",
@@ -30,13 +39,5 @@ List appDataes = [
     "appdetail":
         """برنامه ای برای ایجاد محیط برای کانکوریان از جمله سوالات مختلف درسی""",
     "applink": "https://play.google.com/store/apps/details?id=com.kankoor"
-  },
-  {
-    "id": "4",
-    "appname": "شیک چت",
-    "appicon": "shickChat.png",
-    "appdetail": """برنامه ای برای ایجاد محیط پرسرعت و امن برای چت کاربران""",
-    "applink":
-        "https://play.google.com/store/apps/details?id=com.arianadevelopers.shick.chat"
   },
 ];

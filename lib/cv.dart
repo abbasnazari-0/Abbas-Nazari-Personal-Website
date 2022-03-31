@@ -96,10 +96,10 @@ class MainViews extends StatefulWidget {
         ),
         LinkRenderer(
           anchorText: 'ABBAS NAZARI Github',
-          link: 'https://github.com/abbas-nazari',
+          link: 'https://github.com/abbasnazari-0',
           child: IconButton(
             onPressed: () {
-              launchURL('https://github.com/abbas-nazari');
+              launchURL('https://github.com/abbasnazari-0');
             },
             icon: Image.network('img/github.png', color: Colors.white),
           ),
